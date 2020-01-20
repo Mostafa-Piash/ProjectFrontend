@@ -1,0 +1,67 @@
+<mat-drawer-container  autosize>
+    <mat-drawer #sidePanel class="sidenav" mode="side" position="end">
+        <app-add-user  [hidden]="!isAddPanelOpen"></app-add-user>
+        <app-edit-user [hidden]="!isEditPanelOpen"></app-edit-user>
+    </mat-drawer>
+
+    <div class="sidenav-content">
+
+        <mat-card>
+            <button type="button" mat-raised-button color="primary" (click)="opneAddPanel();" *ngIf="!isAddPanelOpen && !isEditPanelOpen">
+                Add New User
+            </button>
+        </mat-card>
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource">
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef> No. </th>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef> Email </th>
+                    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="address">
+                    <th mat-header-cell *matHeaderCellDef> Address </th>
+                    <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef colspan="2"> Action </th>
+                    <td mat-cell *matCellDef="let element" colspan="2">
+                        <span>
+                            <button type="button" mat-stroked-button color="warn"  *ngIf="!isAddPanelOpen && !isEditPanelOpen">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+                        </span>
+                        <span>
+                            <button type="button" mat-stroked-button color="primary" (click)="opneEditPanel();" *ngIf="!isAddPanelOpen && !isEditPanelOpen">
+                                <i class="fa fa-edit" aria-hidden="true"></i>
+                            </button>
+                        </span>
+
+                    </td>
+
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
+    </div>
+
+</mat-drawer-container>
